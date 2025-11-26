@@ -1,0 +1,295 @@
+# Yelp Business Api MCP Server
+
+[English](./README_EN.md) | 简体中文 | [繁體中文](./README_ZH-TW.md)
+
+## 🚀 使用 EMCP 平台快速体验
+
+**[EMCP](https://sit-emcp.kaleido.guru)** 是一个强大的 MCP 服务器管理平台，让您无需手动配置即可快速使用各种 MCP 服务器！
+
+### 快速开始：
+
+1. 🌐 访问 **[EMCP 平台](https://sit-emcp.kaleido.guru)**
+2. 📝 注册并登录账号
+3. 🎯 进入 **MCP 广场**，浏览所有可用的 MCP 服务器
+4. 🔍 搜索或找到本服务器（`bach-yelp_business_api`）
+5. 🎉 点击 **"安装 MCP"** 按钮
+6. ✅ 完成！即可在您的应用中使用
+
+### EMCP 平台优势：
+
+- ✨ **零配置**：无需手动编辑配置文件
+- 🎨 **可视化管理**：图形界面轻松管理所有 MCP 服务器
+- 🔐 **安全可靠**：统一管理 API 密钥和认证信息
+- 🚀 **一键安装**：MCP 广场提供丰富的服务器选择
+- 📊 **使用统计**：实时查看服务调用情况
+
+立即访问 **[EMCP 平台](https://sit-emcp.kaleido.guru)** 开始您的 MCP 之旅！
+
+
+---
+
+## 简介
+
+这是一个使用 [FastMCP](https://fastmcp.wiki) 自动生成的 MCP 服务器，用于访问 Yelp Business Api API。
+
+- **PyPI 包名**: `bach-yelp_business_api`
+- **版本**: 1.0.0
+- **传输协议**: stdio
+
+
+## 安装
+
+### 从 PyPI 安装:
+
+```bash
+pip install bach-yelp_business_api
+```
+
+### 从源码安装:
+
+```bash
+pip install -e .
+```
+
+## 运行
+
+### 方式 1: 使用 uvx（推荐，无需安装）
+
+```bash
+# 运行（uvx 会自动安装并运行）
+uvx --from bach-yelp_business_api bach_yelp_business_api
+
+# 或指定版本
+uvx --from bach-yelp_business_api@latest bach_yelp_business_api
+```
+
+### 方式 2: 直接运行（开发模式）
+
+```bash
+python server.py
+```
+
+### 方式 3: 安装后作为命令运行
+
+```bash
+# 安装
+pip install bach-yelp_business_api
+
+# 运行（命令名使用下划线）
+bach_yelp_business_api
+```
+
+## 配置
+
+### API 认证
+
+此 API 需要认证。请设置环境变量:
+
+```bash
+export API_KEY="your_api_key_here"
+```
+
+### 环境变量
+
+| 变量名 | 说明 | 必需 |
+|--------|------|------|
+| `API_KEY` | API 密钥 | 是 |
+
+
+
+
+### 在 Claude Desktop 中使用
+
+编辑 Claude Desktop 配置文件 `claude_desktop_config.json`:
+
+
+```json
+{
+  "mcpServers": {
+    "yelp_business_api": {
+      "command": "python",
+      "args": ["E:\path\to\yelp_business_api\server.py"],
+      "env": {
+        "API_KEY": "your_api_key_here"
+      }
+    }
+  }
+}
+```
+
+**注意**: 请将 `E:\path\to\yelp_business_api\server.py` 替换为实际的服务器文件路径。
+
+
+## 可用工具
+
+此服务器提供以下工具:
+
+
+### `__reviews`
+
+Get business reviews by url or id
+
+**端点**: `GET /reviews`
+
+
+**参数**:
+
+- `business_url` (string): Enter any business url from yelp.com (any subdomain)
+
+- `business_id` (string): Enter any business ID found from /search endpoint
+
+- `reviews_per_page` (string): Max value could be: 45
+
+- `end_cursor` (string): For first page: Default is set to None For next pages, if hasNextPage = true : Input the end_cursor value found from the response of the previous page to get reviews of the next page. Ex. end_cursor = eyJ2ZXJzaW9uIjoxLCJ0eXBlIjoib2Zmc2V0Iiwib2Zmc2V0Ijo0NH0
+
+- `sort_by` (string): Example value: 
+
+- `rating_filter` (string): Example value: 
+
+
+
+---
+
+
+### `___search_yelp_category`
+
+Select any category you want to scrape.
+
+**端点**: `GET /search/category`
+
+
+**参数**:
+
+- `location` (string) *必需*: Example value: New York, NY
+
+- `search_category` (string) *必需*: Search for any category available on Yelp. Ex. Restaurants, Pharmacy & Chemists, Animal Assisted Therapy, Dentists Few terms are not available as category searches, use term search. Ex. Movers, Plumbers
+
+- `limit` (string): Number of results per page. Max: 40 Default: 10.
+
+- `offset` (string): If offset is set to 0, it means start from zero. If offset is set to 20, it means to start showing after 20 results.
+
+- `business_details_type` (string): Basic: provides basic info's about the businesses. Advanced: provides in-depth information about the businesses (it's like using /search and /each business details endpoints at the same time) Advanced option costs 2 requests per call.
+
+
+
+---
+
+
+### `__popular_dishes`
+
+Get popular_dish list of a restaurant when available on the website.
+
+**端点**: `GET /popular_dish`
+
+
+**参数**:
+
+- `business_id` (string) *必需*: Get popular dishes from a restaurant when available on the website. Input business_id.
+
+
+
+---
+
+
+### `__get_menus_beta`
+
+Get restaurant menus if present on yelp
+
+**端点**: `GET /get_menus`
+
+
+**参数**:
+
+- `business_id` (string) *必需*: Find restaurant menus if present on the Yelp website. Menus on personal websites cannot be collected.
+
+
+
+---
+
+
+### `_business_url_to_id`
+
+Find biz id from url.
+
+**端点**: `GET /biz_url2id`
+
+
+**参数**:
+
+- `business_url` (string) *必需*: Enter url to find the business id.
+
+
+
+---
+
+
+### `___search_yelp_term`
+
+Use the same search box on yelp.com
+
+**端点**: `GET /search`
+
+
+**参数**:
+
+- `location` (string) *必需*: Enter exact locations. For example, use Roosevelt, NY not Roosevelt only.
+
+- `search_term` (string) *必需*: Enter any search term you want, just like on Yelp. Ex. Coffee shop, Pizza shop, electrician, or plumber Ex. Black Owned Saloon, Mexican pizza shop
+
+- `limit` (string): Number of results per page. Max: 40 Default: 10.
+
+- `offset` (string): If offset is set to 0, it means start from zero. If offset is set to 20, it means to start showing after 20 results.
+
+- `business_details_type` (string): Basic: provides basic info's about the businesses. Advanced: provides in-depth information about the businesses (it's like using /search and /each business details endpoints at the same time) Advanced option costs 2 requests per call.
+
+
+
+---
+
+
+### `__business_details`
+
+Scrape By Yelp URL: Ex. https://www.yelp.com/biz/capital-blossom-day-spa-washington  or by business ids found from /search endpoint.  You can get these business urls from the \
+
+**端点**: `GET /each`
+
+
+**参数**:
+
+- `business_url` (string): Get the business details by Yelp Business URL.
+
+- `business_ids` (string): Get business details from business_id found from /search endpoint. Separate each using a comma. You can put up to 39 business ids on each request. Ex. BCUhfgjbVVvjs0ro4ATRsg,wj7ekipyvssV3Ok7p8zxGg, V2_qfjnwAVWqIphf7y866w
+
+
+
+---
+
+
+### `_upcheck`
+
+Check if the api status is live!
+
+**端点**: `GET /upcheck`
+
+
+**参数**:
+
+- `check` (string) *必需*: Example value: true
+
+
+
+---
+
+
+
+## 技术栈
+
+- **FastMCP**: 快速、Pythonic 的 MCP 服务器框架
+- **传输协议**: stdio
+- **HTTP 客户端**: httpx
+
+## 开发
+
+此服务器由 [API-to-MCP](https://github.com/BACH-AI-Tools/api-to-mcp) 工具自动生成。
+
+版本: 1.0.0
