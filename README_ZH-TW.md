@@ -30,7 +30,7 @@
 
 ## 簡介
 
-這是一個使用 [FastMCP](https://fastmcp.wiki) 自動生成的 MCP 伺服器，用於存取 Yelp Business Api API。
+這是一個 MCP 伺服器，用於存取 Yelp Business Api API。
 
 - **PyPI 套件名**: `bach-yelp_business_api`
 - **版本**: 1.0.0
@@ -107,8 +107,8 @@ export API_KEY="your_api_key_here"
 {
   "mcpServers": {
     "yelp_business_api": {
-      "command": "python",
-      "args": ["E:\path\to\yelp_business_api\server.py"],
+      "command": "uvx",
+      "args": ["--from", "bach-yelp_business_api", "bach_yelp_business_api"],
       "env": {
         "API_KEY": "your_api_key_here"
       }
@@ -284,7 +284,6 @@ Check if the api status is live!
 
 ## 技术栈
 
-- **FastMCP**: 快速、Pythonic 的 MCP 服务器框架
 - **传输协议**: stdio
 - **HTTP 客户端**: httpx
 

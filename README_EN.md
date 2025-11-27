@@ -30,7 +30,7 @@ Visit **[EMCP Platform](https://sit-emcp.kaleido.guru)** now to start your MCP j
 
 ## Introduction
 
-This is an automatically generated MCP server using [FastMCP](https://fastmcp.wiki) for accessing the Yelp Business Api API.
+This is an MCP server for accessing the Yelp Business Api API.
 
 - **PyPI Package**: `bach-yelp_business_api`
 - **Version**: 1.0.0
@@ -107,8 +107,8 @@ export API_KEY="your_api_key_here"
 {
   "mcpServers": {
     "yelp_business_api": {
-      "command": "python",
-      "args": ["E:\path\to\yelp_business_api\server.py"],
+      "command": "uvx",
+      "args": ["--from", "bach-yelp_business_api", "bach_yelp_business_api"],
       "env": {
         "API_KEY": "your_api_key_here"
       }

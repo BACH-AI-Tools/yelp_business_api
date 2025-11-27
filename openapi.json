@@ -1,0 +1,423 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Yelp Business Api",
+    "version": "1.0.0",
+    "description": "RapidAPI: oneapiproject/yelp-business-api"
+  },
+  "servers": [
+    {
+      "url": "https://yelp-business-api.p.rapidapi.com"
+    }
+  ],
+  "paths": {
+    "/reviews": {
+      "get": {
+        "summary": "☑️ / Reviews",
+        "description": "Get business reviews by url or id",
+        "operationId": "☑️_/_reviews",
+        "parameters": [
+          {
+            "name": "business_url",
+            "in": "query",
+            "required": false,
+            "description": "Enter any business url from yelp.com (any subdomain)",
+            "schema": {
+              "type": "string",
+              "default": null,
+              "enum": null
+            }
+          },
+          {
+            "name": "business_id",
+            "in": "query",
+            "required": false,
+            "description": "Enter any business ID found from /search endpoint",
+            "schema": {
+              "type": "string",
+              "default": null,
+              "enum": null
+            }
+          },
+          {
+            "name": "reviews_per_page",
+            "in": "query",
+            "required": false,
+            "description": "Max value could be: 45",
+            "schema": {
+              "type": "string",
+              "default": "20",
+              "enum": null
+            }
+          },
+          {
+            "name": "end_cursor",
+            "in": "query",
+            "required": false,
+            "description": "For first page: Default is set to None For next pages, if hasNextPage = true : Input the end_cursor value found from the response of the previous page to get reviews of the next page. Ex. end_cursor = eyJ2ZXJzaW9uIjoxLCJ0eXBlIjoib2Zmc2V0Iiwib2Zmc2V0Ijo0NH0",
+            "schema": {
+              "type": "string",
+              "default": null,
+              "enum": null
+            }
+          },
+          {
+            "name": "sort_by",
+            "in": "query",
+            "required": false,
+            "description": "Example value: ",
+            "schema": {
+              "type": "string",
+              "default": null,
+              "enum": null
+            }
+          },
+          {
+            "name": "rating_filter",
+            "in": "query",
+            "required": false,
+            "description": "Example value: ",
+            "schema": {
+              "type": "string",
+              "default": null,
+              "enum": null
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/search/category": {
+      "get": {
+        "summary": "🔍  / Search Yelp (category)",
+        "description": "Select any category you want to scrape.",
+        "operationId": "🔍__/_search_yelp_(category)",
+        "parameters": [
+          {
+            "name": "location",
+            "in": "query",
+            "required": true,
+            "description": "Example value: New York, NY",
+            "schema": {
+              "type": "string",
+              "default": null,
+              "enum": null
+            }
+          },
+          {
+            "name": "search_category",
+            "in": "query",
+            "required": true,
+            "description": "Search for any category available on Yelp. Ex. Restaurants, Pharmacy & Chemists, Animal Assisted Therapy, Dentists Few terms are not available as category searches, use term search. Ex. Movers, Plumbers",
+            "schema": {
+              "type": "string",
+              "default": null,
+              "enum": null
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "description": "Number of results per page. Max: 40 Default: 10.",
+            "schema": {
+              "type": "string",
+              "default": "10",
+              "enum": null
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "description": "If offset is set to 0, it means start from zero. If offset is set to 20, it means to start showing after 20 results.",
+            "schema": {
+              "type": "string",
+              "default": "0",
+              "enum": null
+            }
+          },
+          {
+            "name": "business_details_type",
+            "in": "query",
+            "required": false,
+            "description": "Basic: provides basic info's about the businesses. Advanced: provides in-depth information about the businesses (it's like using /search and /each business details endpoints at the same time) Advanced option costs 2 requests per call.",
+            "schema": {
+              "type": "string",
+              "default": null,
+              "enum": null
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/popular_dish": {
+      "get": {
+        "summary": "🔝 / popular_dishes",
+        "description": "Get popular_dish list of a restaurant when available on the website.",
+        "operationId": "🔝_/_popular_dishes",
+        "parameters": [
+          {
+            "name": "business_id",
+            "in": "query",
+            "required": true,
+            "description": "Get popular dishes from a restaurant when available on the website. Input business_id.",
+            "schema": {
+              "type": "string",
+              "default": null,
+              "enum": null
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/get_menus": {
+      "get": {
+        "summary": "🌮 / Get Menus (beta)",
+        "description": "Get restaurant menus if present on yelp",
+        "operationId": "🌮_/_get_menus_(beta)",
+        "parameters": [
+          {
+            "name": "business_id",
+            "in": "query",
+            "required": true,
+            "description": "Find restaurant menus if present on the Yelp website. Menus on personal websites cannot be collected.",
+            "schema": {
+              "type": "string",
+              "default": null,
+              "enum": null
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/biz_url2id": {
+      "get": {
+        "summary": "/ Business URL to ID",
+        "description": "Find biz id from url.",
+        "operationId": "/_business_url_to_id",
+        "parameters": [
+          {
+            "name": "business_url",
+            "in": "query",
+            "required": true,
+            "description": "Enter url to find the business id.",
+            "schema": {
+              "type": "string",
+              "default": null,
+              "enum": null
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/search": {
+      "get": {
+        "summary": "🔍  / Search Yelp (term)",
+        "description": "Use the same search box on yelp.com",
+        "operationId": "🔍__/_search_yelp_(term)",
+        "parameters": [
+          {
+            "name": "location",
+            "in": "query",
+            "required": true,
+            "description": "Enter exact locations. For example, use Roosevelt, NY not Roosevelt only.",
+            "schema": {
+              "type": "string",
+              "default": null,
+              "enum": null
+            }
+          },
+          {
+            "name": "search_term",
+            "in": "query",
+            "required": true,
+            "description": "Enter any search term you want, just like on Yelp. Ex. Coffee shop, Pizza shop, electrician, or plumber Ex. Black Owned Saloon, Mexican pizza shop",
+            "schema": {
+              "type": "string",
+              "default": null,
+              "enum": null
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "description": "Number of results per page. Max: 40 Default: 10.",
+            "schema": {
+              "type": "string",
+              "default": "10",
+              "enum": null
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "description": "If offset is set to 0, it means start from zero. If offset is set to 20, it means to start showing after 20 results.",
+            "schema": {
+              "type": "string",
+              "default": "0",
+              "enum": null
+            }
+          },
+          {
+            "name": "business_details_type",
+            "in": "query",
+            "required": false,
+            "description": "Basic: provides basic info's about the businesses. Advanced: provides in-depth information about the businesses (it's like using /search and /each business details endpoints at the same time) Advanced option costs 2 requests per call.",
+            "schema": {
+              "type": "string",
+              "default": null,
+              "enum": null
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/each": {
+      "get": {
+        "summary": "📚 / Business details",
+        "description": "Scrape By Yelp URL: Ex. https://www.yelp.com/biz/capital-blossom-day-spa-washington  or by business ids found from /search endpoint.  You can get these business urls from the \\",
+        "operationId": "📚_/_business_details",
+        "parameters": [
+          {
+            "name": "business_url",
+            "in": "query",
+            "required": false,
+            "description": "Get the business details by Yelp Business URL.",
+            "schema": {
+              "type": "string",
+              "default": null,
+              "enum": null
+            }
+          },
+          {
+            "name": "business_ids",
+            "in": "query",
+            "required": false,
+            "description": "Get business details from business_id found from /search endpoint. Separate each using a comma. You can put up to 39 business ids on each request. Ex. BCUhfgjbVVvjs0ro4ATRsg,wj7ekipyvssV3Ok7p8zxGg, V2_qfjnwAVWqIphf7y866w",
+            "schema": {
+              "type": "string",
+              "default": null,
+              "enum": null
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/upcheck": {
+      "get": {
+        "summary": "/ Upcheck",
+        "description": "Check if the api status is live!",
+        "operationId": "/_upcheck",
+        "parameters": [
+          {
+            "name": "check",
+            "in": "query",
+            "required": true,
+            "description": "Example value: true",
+            "schema": {
+              "type": "string",
+              "default": null,
+              "enum": null
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "ApiAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-RapidAPI-Key"
+      }
+    }
+  },
+  "security": [
+    {
+      "ApiAuth": []
+    }
+  ]
+}
